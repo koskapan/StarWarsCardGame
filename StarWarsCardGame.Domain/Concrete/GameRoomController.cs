@@ -9,15 +9,41 @@ namespace StarWarsCardGame.Domain.Concrete
 {
     public class GameRoomController: IGameRoomController
     {
+        private List<string> _users;
+        private List<Card> _cards;
         public string Id { get; }
 
-        public IQueryable<string> Users { get; set; }
+        public IEnumerable<string> Users
+        {
+            get
+            {
+                return _users;
+            }
+        }
 
-        public IQueryable<Card> Cards { get; set; }
+        public IEnumerable<Card> Cards
+        {
+            get
+            {
+                return _cards;
+            }
+        }
 
         public GameRoomController()
         {
             this.Id = Guid.NewGuid().ToString();
+            _users = new List<string>();
+            _cards = new List<Card>();
+        }
+
+        public bool AcceptUser(string userId)
+        {
+            if (!_users.Contains(userId))
+            {
+                _users.Add(userId);
+                return true;
+            }
+            else return false;
         }
     }
 }

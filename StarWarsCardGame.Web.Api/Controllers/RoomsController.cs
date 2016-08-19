@@ -7,11 +7,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
 
 namespace StarWarsCardGame.Web.Api.Controllers
 {
     [RoutePrefix("api/v1/rooms")]
-    public class GameRoomsController : ApiController
+    [Authorize]
+    public class RoomsController : ApiController
     {
         // GET: api/GameRooms
         [HttpGet]
@@ -27,7 +29,16 @@ namespace StarWarsCardGame.Web.Api.Controllers
         public GameRoomControllerViewModel JoinRoom(string Id)
         {
             IGameRoomController controller = GameRoomControllerFactory.GetController(Id);
-            return new GameRoomControllerViewModel { GameRoomControllerId = controller == null ? "Noroom" : controller.Id };
+            string resultMessage = "";
+            if (!controller.AcceptUser(User.Identity.Name))
+            {
+                resultMessage = "something wrong";
+            }
+            else
+            {
+                resultMessage = controller.Id;
+            }
+            return new GameRoomControllerViewModel { GameRoomControllerId = resultMessage };
         }
     }
 }
