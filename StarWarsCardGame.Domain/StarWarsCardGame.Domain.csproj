@@ -46,7 +46,6 @@
     <Compile Include="Concrete\GameRoomController.cs" />
     <Compile Include="Concrete\GameRoomControllerFactory.cs" />
     <Compile Include="Entities\Card.cs" />
-    <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

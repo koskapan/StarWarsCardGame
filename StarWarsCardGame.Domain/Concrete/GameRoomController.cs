@@ -11,13 +11,13 @@ namespace StarWarsCardGame.Domain.Concrete
     {
         public string Id { get; }
 
-        public IQueryable<User> Users { get; set; }
+        public IQueryable<string> Users { get; set; }
 
         public IQueryable<Card> Cards { get; set; }
 
         public GameRoomController()
         {
-            this.Id = new Guid().ToString();
+            this.Id = Guid.NewGuid().ToString();
         }
     }
 }

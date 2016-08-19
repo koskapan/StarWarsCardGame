@@ -10,7 +10,7 @@ namespace StarWarsCardGame.Domain.Abstract
     public interface IGameRoomController
     {
         string Id { get; }
-        IQueryable<User> Users { get; set; }
+        IQueryable<string> Users { get; set; }
         IQueryable<Card> Cards { get; set; }
     }
 }

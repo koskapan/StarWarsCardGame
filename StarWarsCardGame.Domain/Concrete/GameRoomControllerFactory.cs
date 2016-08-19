@@ -6,18 +6,18 @@ using System.Web;
 
 namespace StarWarsCardGame.Domain.Concrete
 {
-    public class GameRoomControllerFactory : IGameRoomControllerFactory
+    public static class GameRoomControllerFactory// : IGameRoomControllerFactory
     {
-        List<IGameRoomController> gameControllers = new List<IGameRoomController>();
+        static List<IGameRoomController> gameControllers = new List<IGameRoomController>();
 
-        public string CreateController()
+        static public IGameRoomController CreateController()
         {
             GameRoomController newController = new GameRoomController();
             gameControllers.Add(newController);
-            return newController.Id;
+            return newController;
         }
 
-        public void DeleteController(string ControllerId)
+        public static void DeleteController(string ControllerId)
         {
             var gc = GetController(ControllerId);
             if (gc != null)
@@ -26,7 +26,7 @@ namespace StarWarsCardGame.Domain.Concrete
             }
         }
 
-        public IGameRoomController GetController(string ControllerId)
+        public static IGameRoomController GetController(string ControllerId)
         {
             return gameControllers.Find(c => c.Id == ControllerId);            
         }

@@ -11,10 +11,9 @@ namespace StarWarsCardGame.Domain.Tests
         [TestMethod]
         public void Can_Create_GameRoomController()
         {
-            IGameRoomControllerFactory factory = new GameRoomControllerFactory();
-            string newGameControllerId = factory.CreateController();
+            string newGameControllerId = GameRoomControllerFactory.CreateController().Id;
             Assert.AreNotEqual(null, newGameControllerId);
-            Assert.AreNotEqual(null, factory.GetController(newGameControllerId));
+            Assert.AreNotEqual(null, GameRoomControllerFactory.GetController(newGameControllerId));
         }
     }
 }

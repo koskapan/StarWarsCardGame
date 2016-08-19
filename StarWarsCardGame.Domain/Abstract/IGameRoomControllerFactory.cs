@@ -8,7 +8,7 @@ namespace StarWarsCardGame.Domain.Abstract
 {
     public interface IGameRoomControllerFactory
     {
-        string CreateController();
+        IGameRoomController CreateController();
         IGameRoomController GetController(string ControllerId);
         void DeleteController(string ControllerId);
     }
