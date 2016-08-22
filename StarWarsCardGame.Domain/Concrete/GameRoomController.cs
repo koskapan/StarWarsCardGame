@@ -12,6 +12,14 @@ namespace StarWarsCardGame.Domain.Concrete
         private List<string> _users;
         private List<Card> _cards;
         public string Id { get; }
+        public string Name { get; }
+        public IEnumerable<Card> Cards
+        {
+            get
+            {
+                return _cards;
+            }
+        }
 
         public IEnumerable<string> Users
         {
@@ -21,29 +29,26 @@ namespace StarWarsCardGame.Domain.Concrete
             }
         }
 
-        public IEnumerable<Card> Cards
-        {
-            get
-            {
-                return _cards;
-            }
-        }
-
-        public GameRoomController()
+        public GameRoomController(string name)
         {
             this.Id = Guid.NewGuid().ToString();
+            this.Name = name;
             _users = new List<string>();
             _cards = new List<Card>();
         }
 
-        public bool AcceptUser(string userId)
+        public UserConnectionResult AcceptUser(string userId)
         {
             if (!_users.Contains(userId))
             {
                 _users.Add(userId);
-                return true;
+                return new UserConnectionResult { Status = ConnectionStatuses.Success };
             }
-            else return false;
+            else
+            {
+                return new UserConnectionResult { Status = ConnectionStatuses.Error, Message = "User exists" };
+            }
         }
+        
     }
 }

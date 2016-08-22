@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Abstract\ICardRepository.cs" />
     <Compile Include="Abstract\IGameRoomController.cs" />
+    <Compile Include="Concrete\UserConnectionResult.cs" />
     <Compile Include="Concrete\GameRoomController.cs" />
     <Compile Include="Concrete\GameRoomControllerFactory.cs" />
     <Compile Include="Entities\Card.cs" />

@@ -29,16 +29,15 @@ namespace StarWarsCardGame.Web.Api.Controllers
         public GameRoomControllerViewModel JoinRoom(string Id)
         {
             IGameRoomController controller = GameRoomControllerFactory.GetController(Id);
-            string resultMessage = "";
-            if (!controller.AcceptUser(User.Identity.Name))
+            if (controller == null) return new GameRoomControllerViewModel { Status = GameRoomControllerStatuses.ERR, StatusMessage = "No such room" };
+            var connectionResult  = controller.AcceptUser(User.Identity.Name);
+            switch (connectionResult.Status)
             {
-                resultMessage = "something wrong";
+                case ConnectionStatuses.Success:
+                    return new GameRoomControllerViewModel { Status = GameRoomControllerStatuses.OK, GameRoomControllerId = controller.Id, Users = controller.Users };
+                default:
+                    return new GameRoomControllerViewModel { Status = GameRoomControllerStatuses.ERR };
             }
-            else
-            {
-                resultMessage = controller.Id;
-            }
-            return new GameRoomControllerViewModel { GameRoomControllerId = resultMessage };
         }
     }
 }

@@ -12,7 +12,7 @@ namespace StarWarsCardGame.Domain.Concrete
 
         static public IGameRoomController CreateController()
         {
-            GameRoomController newController = new GameRoomController();
+            GameRoomController newController = new GameRoomController("noname");
             gameControllers.Add(newController);
             return newController;
         }
