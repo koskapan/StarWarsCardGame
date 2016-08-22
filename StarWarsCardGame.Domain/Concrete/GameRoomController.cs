@@ -9,8 +9,8 @@ namespace StarWarsCardGame.Domain.Concrete
 {
     public class GameRoomController: IGameRoomController
     {
-        private List<string> _users;
-        private List<Card> _cards;
+        List<string> _users;
+        List<Card> _cards;
         public string Id { get; }
         public string Name { get; }
         public IEnumerable<Card> Cards
@@ -31,22 +31,29 @@ namespace StarWarsCardGame.Domain.Concrete
 
         public GameRoomController(string name)
         {
-            this.Id = Guid.NewGuid().ToString();
-            this.Name = name;
             _users = new List<string>();
             _cards = new List<Card>();
+            Id = Guid.NewGuid().ToString();
+            Name = name;
         }
-
+        
         public UserConnectionResult AcceptUser(string userId)
         {
-            if (!_users.Contains(userId))
+            if (_users.Count() <= 4)
             {
-                _users.Add(userId);
-                return new UserConnectionResult { Status = ConnectionStatuses.Success };
+                if (!_users.Contains(userId))
+                {
+                    _users.Add(userId);
+                    return new UserConnectionResult { Status = ConnectionStatuses.Success };
+                }
+                else
+                {
+                    return new UserConnectionResult { Status = ConnectionStatuses.UserExists };
+                }
             }
             else
             {
-                return new UserConnectionResult { Status = ConnectionStatuses.Error, Message = "User exists" };
+                return new UserConnectionResult { Status = ConnectionStatuses.Full };
             }
         }
         

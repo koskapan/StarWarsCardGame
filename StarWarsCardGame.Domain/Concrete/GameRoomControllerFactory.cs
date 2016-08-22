@@ -30,5 +30,10 @@ namespace StarWarsCardGame.Domain.Concrete
         {
             return gameControllers.Find(c => c.Id == ControllerId);            
         }
+
+        public static IQueryable<IGameRoomController> GetControllers()
+        {
+            return gameControllers.AsQueryable();
+        }
     }
 }

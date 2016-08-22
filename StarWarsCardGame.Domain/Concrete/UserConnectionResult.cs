@@ -12,5 +12,5 @@ namespace StarWarsCardGame.Domain.Concrete
         public ConnectionStatuses Status { get; set; }
     }
 
-    public enum ConnectionStatuses { Success, Error }
+    public enum ConnectionStatuses { Success, Full, UserExists, NoRoom, Fail }
 }
