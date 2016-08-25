@@ -56,6 +56,17 @@ namespace StarWarsCardGame.Domain.Concrete
                 return new UserConnectionResult { Status = ConnectionStatuses.Full };
             }
         }
-        
+
+        public UserConnectionResult DisconnectUser(string userId)
+        {
+            if (_users.Remove(userId))
+            {
+                return new UserConnectionResult { Status = ConnectionStatuses.Success };
+            }
+            else
+            {
+                return new UserConnectionResult { Status = ConnectionStatuses.Fail };
+            }
+        }
     }
 }

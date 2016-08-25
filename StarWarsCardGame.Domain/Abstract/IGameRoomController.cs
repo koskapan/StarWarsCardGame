@@ -15,5 +15,6 @@ namespace StarWarsCardGame.Domain.Abstract
         IEnumerable<Card> Cards { get;  }
         IEnumerable<string> Users { get; }
         UserConnectionResult AcceptUser(string userId);
+        UserConnectionResult DisconnectUser(string userId);
     }
 }

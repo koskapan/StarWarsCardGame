@@ -41,6 +41,23 @@ namespace StarWarsCardGame.Web.Api.Controllers
         }
 
         [HttpGet]
+        [Route("leave")]
+        public GameRoomControllerViewModel LeaveRoom(string Id)
+        {
+            IGameRoomController controller = GameRoomControllerFactory.GetController(Id);
+            if (controller == null) return new GameRoomControllerViewModel { Status = ConnectionStatuses.NoRoom, StatusMessage = "No such room" };
+            var connectionResult = controller.DisconnectUser(User.Identity.Name);
+            switch (connectionResult.Status)
+            {
+                case ConnectionStatuses.Success:
+                    return new GameRoomControllerViewModel(connectionResult) { GameRoomControllerId = controller.Id, Users = controller.Users };
+                default:
+                    return new GameRoomControllerViewModel(connectionResult);
+            }
+        }
+        
+
+        [HttpGet]
         public IEnumerable<IGameRoomController> GetControllers()
         {
             return GameRoomControllerFactory.GetControllers();
